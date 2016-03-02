@@ -1,0 +1,10 @@
+readerscript-old/
+readerscript/coord_cache.db
+readerscript/diffreader.log
+readerscript/test.rb
+schools/edits.csv
+schools/edits.db
+schools/newyear_seq.txt
+schools/on_seq.txt
+baseball/
+wimbledon/
