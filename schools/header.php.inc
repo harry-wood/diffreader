@@ -120,7 +120,8 @@ TABLE TH {
   
   <span id="menu">
   <a href="./<?php echo "?filter=$filter"; ?>" title="list of edits coming in">Edits</a> |
-  <a href="./rankings.php<?php echo "?filter=$filter"; ?>" title="which users are making most edits">Rankings</a>
+  <a href="./rankings.php<?php echo "?filter=$filter"; ?>" title="which users are making most edits">Rankings</a> |
+  <a href="./new-starters.php<?php echo "?filter=$filter"; ?>" title="how many users are joining in">New Starters</a>
   </span>
   &nbsp;
   <br><br>
