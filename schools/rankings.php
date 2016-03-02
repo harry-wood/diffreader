@@ -1,5 +1,6 @@
 <?php
 include('header.php.inc');
+include('display.php.inc');
 ?>
 <center>
 
@@ -21,11 +22,7 @@ while ($data = $results->fetchArray()) {
    $count           = $data[0];
    $user            = $data[1];
    $start_timestamp = $data[2];
-   
-   $user_url = urlencode($user);
-   $user_url = str_replace("+", "%20", $user_url);
-   
-   print "<li><a href=\"http://www.openstreetmap.org/user/".$user_url."\" title=\"osm user page\">$user</a> - <span title=\"starting ".$start_timestamp."\">$count edits</span></li>";
+   print '<li>' . user_link($user) . " - $count edits</li>";
 }
 print "</ol>\n";
 print "</td>\n";
@@ -36,11 +33,7 @@ $results = $db->query("SELECT count(*) AS count, user_name FROM edits WHERE time
 while ($data = $results->fetchArray()) {
    $count    = $data[0];
    $user     = $data[1];
-   
-   $user_url = urlencode($user);
-   $user_url = str_replace("+", "%20", $user_url);
-   
-   print "<li><a href=\"http://www.openstreetmap.org/user/".$user_url."\" title=\"osm user page\">$user</a> - $count edits</li>";
+   print '<li>' . user_link($user) . " - $count edits</li>";
 }
 print "</td>\n";
 
@@ -51,11 +44,7 @@ $results = $db->query("SELECT count(*) AS count, user_name FROM edits WHERE time
 while ($data = $results->fetchArray()) {
    $count    = $data[0];
    $user     = $data[1];
-   
-   $user_url = urlencode($user);
-   $user_url = str_replace("+", "%20", $user_url);
-   
-   print "<li><a href=\"http://www.openstreetmap.org/user/".$user_url."\" title=\"osm user page\">$user</a> - $count edits</li>";
+   print '<li>' . user_link($user) . " - $count edits</li>";
 }
 print "</td>\n";
 
