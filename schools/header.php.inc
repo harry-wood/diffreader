@@ -108,10 +108,6 @@ TABLE TH {
 }
 #filter-linkes .deselected {
 }
-
-.tablelabel {
-   width:70%; margin:10px; text-align:left; clear:both;
-}
 </style>
 </head>
 
@@ -137,10 +133,12 @@ TABLE TH {
   Area filter:
   <span id='filter-links'>
 <?php
-  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=uk' class='" . ($filter=='uk' ? 'selected' : 'deselected') . "' title='Show edits and stats just for edits UK & Ireland'>[UK & Ireland]</a> | ";
-  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=belgium' class='" . ($filter=='belgium' ? 'selected' : 'deselected') . "' title='Show edits and stats within a Belgium bounding box'>[Belgium]</a> | ";
-  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=uganda' class='" . ($filter=='uganda' ? 'selected' : 'deselected') . "' title='Show edits and stats Uganda'>[Uganda]</a> | ";
-  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=none' class='" . ($filter=='none' ? 'selected' : 'deselected') . "' title='Show edits and stats worldwide'>[Worldwide]</a>";
+  $other_params = '';
+  if (isset($_GET['user'])) $other_params = '&user=' .urlencode($_GET['user']);
+  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=uk$other_params' class='" . ($filter=='uk' ? 'selected' : 'deselected') . "' title='Show edits and stats just for edits UK & Ireland'>[UK & Ireland]</a> | ";
+  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=belgium$other_params' class='" . ($filter=='belgium' ? 'selected' : 'deselected') . "' title='Show edits and stats within a Belgium bounding box'>[Belgium]</a> | ";
+  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=uganda$other_params' class='" . ($filter=='uganda' ? 'selected' : 'deselected') . "' title='Show edits and stats Uganda'>[Uganda]</a> | ";
+  print "<a href='" . basename($_SERVER['PHP_SELF']) . "?filter=none$other_params' class='" . ($filter=='none' ? 'selected' : 'deselected') . "' title='Show edits and stats worldwide'>[Worldwide]</a>";
 ?>
   </span>
 </div>

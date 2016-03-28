@@ -46,6 +46,7 @@ function init() {
 </script>
 <div id="chart" style="width:100%; height:200px;"></div>
 
+
 <?php
 $table_size_limit = 200;
 ?>
@@ -79,9 +80,6 @@ while ($data = $results->fetchArray()) {
    $timestamp = eregi_replace("Z", "", $timestamp);
 
    $timestamp = eregi_replace("Z", "", $timestamp);
-
-   $user_url = urlencode($user);
-   $user_url = str_replace("+", "%20", $user_url);
 
    print "<tr>";
    print "<td>".$timestamp."</td>";
