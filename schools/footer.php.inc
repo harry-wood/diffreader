@@ -5,8 +5,6 @@
 
 <P>By Harry Wood. <a href="./edits.csv">Data live updated for this display available in csv</a> or <a href="./edits.db">as an sqlite3 db file</a>.
 
-<!-- <a href="http://svn.openstreetmap.org/applications/viewer/diffreader/baseball">php source code for the display</a> (very simple so far. <a href="http://harrywood.co.uk/contact-harry.php">Patches welcome</a>) <a href="../diffreader.rb">ruby script for finding matching edits in the minutely diffs</a> 
--->
-
+<p><a href="https://github.com/harry-wood/diffreader">Source code on github</a>. Pull requests welcome!</p>
 </body>
 </html>
