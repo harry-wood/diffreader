@@ -1,5 +1,6 @@
 <?php
 include('chart.php.inc');
+include('display.php.inc');
 
 $head_content = chart_script_tags();
 $onLoad_function = 'init';
@@ -48,9 +49,10 @@ function init() {
 <?php
 $table_size_limit = 200;
 ?>
-<h3 class="tablelabel">Edits coming in</h3>
+<h3>Edits coming in</h3>
 <p>The most recent <?php echo $table_size_limit ?> edits (latest first):</p>
 
+<center>
 <table border="0" id="list">
 <tr>
   <th>time</th>
@@ -85,7 +87,7 @@ while ($data = $results->fetchArray()) {
    print "<td>".$timestamp."</td>";
    print "<td>".$optype."</td>";
    print "<td><a href=\"http://www.openstreetmap.org/browse/$element_type/$osm_id\" title=\"browse the OpenStreetMap element\">$element_type:$osm_id</a></td>";
-   print "<td><a href=\"http://www.openstreetmap.org/user/".$user_url."\" title=\"osm user page\">$user</a></td>";
+   print "<td>" . user_link($user) . "</td>";
    print "<td><a href=\"http://www.openstreetmap.org/browse/changeset/".$changeset."\">$changeset</a></td>\n";
    print "<td><small><a href=\"http://www.openstreetmap.org/?mlat=$lat&mlon=$lon\" title=\"location\">($lat,$lon)</a></small></td>\n";
    print "</tr>\n";
