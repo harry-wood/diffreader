@@ -17,7 +17,7 @@ function start_dates_and_users() {
       );
 
     $output = array(); //hash indexed by date
-    $on_date = null;
+    
     // Loop through SQL result
     while ($row = $results->fetchArray()) {
         $start_date = $row[0];

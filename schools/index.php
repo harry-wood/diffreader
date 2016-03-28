@@ -1,4 +1,8 @@
 <?php
+include('chart.php.inc');
+
+$head_content = chart_script_tags();
+$onLoad_function = 'init';
 include('header.php.inc');
 ?>
 
@@ -15,11 +19,35 @@ $user_count = $res_array[0];
 
 print "<h3><span style=\"font-size:1.2em; background:YELLOW;\">$user_count people</span> have done $edit_count edits</h3>\n";
 print "<br>\n";
-
-$table_size_limit = 300;
 ?>
+</center>
 
+<h3>Edits over time</h3>
+<?php
+$results = $db->query(
+  '  SELECT date(timestamp) AS date, COUNT(*) ' .
+  "  FROM edits $where_filter " .
+  '  GROUP BY date ORDER BY date'
+  );
 
+$chart_data = array(); //hash indexed by date
+// Loop through SQL result
+while ($row = $results->fetchArray()) {
+    $date = $row[0];
+    $count = $row[1];
+    $chart_data[$date] = $count;
+}
+?>
+<script language="javascript" type="text/javascript">
+function init() {
+    <?php print chart_javascript('chart', $chart_data); ?>
+}
+</script>
+<div id="chart" style="width:100%; height:200px;"></div>
+
+<?php
+$table_size_limit = 200;
+?>
 <h3 class="tablelabel">Edits coming in</h3>
 <p>The most recent <?php echo $table_size_limit ?> edits (latest first):</p>
 
@@ -34,7 +62,6 @@ $table_size_limit = 300;
 </tr>
 
 <?php
-
 $results = $db->query('SELECT timestamp, op_type, element_type, osm_id, user_name, changeset, lat, lon FROM edits ' . $where_filter . ' ORDER BY timestamp DESC LIMIT ' . $table_size_limit );
 while ($data = $results->fetchArray()) {
    $timestamp    = $data[0];
@@ -45,15 +72,15 @@ while ($data = $results->fetchArray()) {
    $changeset    = $data[5];
    $lat          = $data[6];
    $lon          = $data[7];
-   
+
    $timestamp = eregi_replace("T", " at ", $timestamp);
-   $timestamp = eregi_replace("Z", "", $timestamp);             
-   
    $timestamp = eregi_replace("Z", "", $timestamp);
-   
+
+   $timestamp = eregi_replace("Z", "", $timestamp);
+
    $user_url = urlencode($user);
    $user_url = str_replace("+", "%20", $user_url);
-   
+
    print "<tr>";
    print "<td>".$timestamp."</td>";
    print "<td>".$optype."</td>";
@@ -61,8 +88,8 @@ while ($data = $results->fetchArray()) {
    print "<td><a href=\"http://www.openstreetmap.org/user/".$user_url."\" title=\"osm user page\">$user</a></td>";
    print "<td><a href=\"http://www.openstreetmap.org/browse/changeset/".$changeset."\">$changeset</a></td>\n";
    print "<td><small><a href=\"http://www.openstreetmap.org/?mlat=$lat&mlon=$lon\" title=\"location\">($lat,$lon)</a></small></td>\n";
-   print "</tr>\n";                          
-      
+   print "</tr>\n";
+
 }
 ?>
 
