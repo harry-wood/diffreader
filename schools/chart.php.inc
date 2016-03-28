@@ -46,6 +46,11 @@ return <<<HTML
         label: {
           text: 'Count',
           position: 'outer-middle'
+        },
+        tick: {
+          format:function(y){
+            return (y == Math.floor(y)) ? y: ""; // Whole numbers only
+          }
         }
       }
     },
