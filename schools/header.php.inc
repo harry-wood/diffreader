@@ -1,6 +1,7 @@
 <?php
 include('countdown.php.inc');
 
+// Filter parameter
 $filter = (isset($_GET['filter']) ? $_GET['filter'] : "uk");
 
 $where_filter = "";
@@ -22,6 +23,7 @@ if ($filter == 'uk') {
 $where_filter = ($cond=='' ? '' : 'WHERE ' . $cond);
 $where_filter_and = ($cond=='' ? '' : 'AND ' . $cond);
 
+// Database connection
 $dbFile = "./edits.db";
 
 $lastUpdate = date ("F d Y H:i:s.", filemtime("./on_seq.txt"));
@@ -30,12 +32,17 @@ $lastUpdate = date ("F d Y H:i:s.", filemtime("./on_seq.txt"));
 if (!file_exists($dbFile)) die('Missing db file ' . $dbFile);
 $db = new SQLite3($dbFile);
 
+// body onLoad (if $onLoad_function is set before including this)
+$body_tag_attributes = '';
+if (isset($onLoad_function)) {
+  $body_tag_attributes .= ' onLoad="javascript:' . $onLoad_function .'();"';
+}
 
-//No cache 
-header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");    // Date in the past 
-header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified 
-header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1 
-header("Cache-Control: post-check=0, pre-check=0", false); 
+// http headers. No cache
+header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");    // Date in the past
+header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); // always modified
+header("Cache-Control: no-store, no-cache, must-revalidate");  // HTTP/1.1
+header("Cache-Control: post-check=0, pre-check=0", false);
 header("Pragma: no-cache");                          // HTTP/1.0
 
 ?>
@@ -46,9 +53,11 @@ header("Pragma: no-cache");                          // HTTP/1.0
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<?php if (isset($head_content)) {print $head_content;}?>
+
 <style>
 body, p, h1, h2, h3, h4, h5, h6, li, td, th, dd, dt {
-	font-family: Verdana, Helvetica, Arial, sans-serif;
+    font-family: Verdana, Helvetica, Arial, sans-serif;
 }
 
 TABLE {
@@ -59,7 +68,7 @@ TABLE {
    border-collapse: collapse;
    font-size: 95%;
 }
- 
+
 TABLE TD {
    padding:4px;
    border-style:solid;
@@ -75,7 +84,7 @@ TABLE TH {
 }
 #list {
    align:center;
-   
+
 }
 #logo {
    float:left;
@@ -106,7 +115,7 @@ TABLE TH {
 </style>
 </head>
 
-<body>
+<body<?php print $body_tag_attributes;?>>
 
 
 <div id="toptext">
@@ -116,8 +125,8 @@ TABLE TH {
   Welcome to the OpenStreetMap School edits tracker. In the UK we're busy mapping schools for the <a href="http://wiki.openstreetmap.org/wiki/UK_Quarterly_Projects#Current_project_-_Schools">OpenStreetMap UK quarterly project</a>.
   </p>
   <p><?php echo countdown(2016, 3, 31, 23, 59); /* $year, $month, $day, $hour, $minute */ ?></p>
-  
-  
+
+
   <span id="menu">
   <a href="./<?php echo "?filter=$filter"; ?>" title="list of edits coming in">Edits</a> |
   <a href="./rankings.php<?php echo "?filter=$filter"; ?>" title="which users are making most edits">Rankings</a> |
