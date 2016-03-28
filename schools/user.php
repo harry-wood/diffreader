@@ -44,11 +44,18 @@ if ($edit_count==0) {
 
     print "<h3>Edits over time</h3>";
 
+    $results = $db->query('SELECT MIN(date(timestamp)) AS start_date, '.
+                          '       MAX(date(timestamp)) AS end_date '.
+                          'FROM edits');
+    $res_array = $results->fetchArray();
+    $start_date = $res_array[0];
+    $end_date = $res_array[1];
+
     $statement = $db->prepare(
-      '  SELECT date(timestamp) AS date, COUNT(*) ' .
-      "  FROM edits " .
-      "  WHERE user_name=:user " . $where_filter_and .
-      '  GROUP BY date ORDER BY date;');
+      'SELECT date(timestamp) AS date, COUNT(*) ' .
+      "FROM edits " .
+      "WHERE user_name=:user $where_filter_and ".
+      'GROUP BY date ORDER BY date;');
 
     $statement->bindValue(':user', $user);
     $results = $statement->execute();
@@ -60,6 +67,11 @@ if ($edit_count==0) {
         $count = $row[1];
         $chart_data[$date] = $count;
     }
+
+    $chart_data = fill_out_with_zeros($chart_data, $start_date, $end_date);
+
+    if (!array_key_exists($start_date, $chart_data)) $chart_data[$start_date] = 0;
+    if (!array_key_exists($end_date, $chart_data)) $chart_data[$end_date] = 0;
     ?>
 
     <script language="javascript" type="text/javascript">

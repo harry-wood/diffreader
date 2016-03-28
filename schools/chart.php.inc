@@ -56,3 +56,16 @@ return <<<HTML
 
 HTML;
 }
+
+function fill_out_with_zeros($chart_data, $start_date, $end_date) {
+    $output = $chart_data;
+    $on_date = new DateTime($start_date);
+    while ($on_date < new DateTime($end_date)) {
+        $on_date_str = $on_date->format('Y-m-d');
+
+        if (!array_key_exists($on_date_str, $output)) $output[$on_date_str] = 0;
+
+        $on_date->add(new DateInterval('P1D'));
+    }
+    return $output;
+}
