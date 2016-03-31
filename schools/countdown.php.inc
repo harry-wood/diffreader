@@ -3,7 +3,7 @@
 function countdown($year, $month, $day, $hour, $minute)
 {
    // date/time when the competition ends
-   $end_date = mktime($hour, $minute, 0, $month, $day, $year, -1);
+   $end_date = mktime($hour, $minute, 0, $month, $day, $year, 1);
 
    $secs= $end_date - time();
    if ($secs < 0) $secs = 0;
