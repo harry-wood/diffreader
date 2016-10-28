@@ -76,10 +76,10 @@ while ($data = $results->fetchArray()) {
    $lat          = $data[6];
    $lon          = $data[7];
 
-   $timestamp = eregi_replace("T", " at ", $timestamp);
-   $timestamp = eregi_replace("Z", "", $timestamp);
+   $timestamp = preg_replace("/T/", " at ", $timestamp);
+   $timestamp = preg_replace("/Z/", "", $timestamp);
 
-   $timestamp = eregi_replace("Z", "", $timestamp);
+   $timestamp = preg_replace("/Z/", "", $timestamp);
 
    print "<tr>";
    print "<td>".$timestamp."</td>";
