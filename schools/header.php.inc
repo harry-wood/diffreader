@@ -26,7 +26,7 @@ $where_filter_and = ($cond=='' ? '' : 'AND ' . $cond);
 // Database connection
 $dbFile = "./edits.db";
 
-$lastUpdate = date ("F d Y H:i:s.", filemtime("./on_seq.txt"));
+$last_update = filemtime("./on_seq.txt");
 
 
 if (!file_exists($dbFile)) die('Missing db file ' . $dbFile);

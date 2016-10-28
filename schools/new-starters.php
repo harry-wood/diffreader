@@ -64,8 +64,8 @@ function init() {
 <?php
 
 $on_date = new DateTime(min(array_keys($start_dates_and_users))); //first start date
-$today = new DateTime();
-while ($on_date < $today) {
+$end_date = DateTime::createFromFormat('U', $last_update);
+while ($on_date < $end_date) {
     $on_date_str = $on_date->format('Y-m-d');
 
     print "<tr>";
