@@ -234,16 +234,16 @@ while true
   # During normal operation the loop would run only once to process the latest
   # minutes changefile
   while on_seq < available_seq
+    sleep @call_delay 
     on_seq += 1
     puts "on_seq = #{on_seq}"
     change_file_url = 'http://planet.openstreetmap.org/replication/minute/' \
                       "#{seq_to_filename(on_seq)}.osc.gz?contact=harry_wood"
     process_change_file(change_file_url)
+    $stdout.flush
 
     update_seq_file(on_seq)
   end
-
-  $stdout.flush
 
   sleep 60
 
