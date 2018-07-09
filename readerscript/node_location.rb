@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sqlite3'
-require 'net/http'
+require 'httpclient'
 require 'uri'
 
 require_relative 'crapxml.rb'
@@ -41,17 +41,22 @@ def request(url)
   return response
 end
 
+def request(url)
+  @client ||= HTTPClient.new
+  @client.get(url) #, query)
+end
+
 def fetch_from_osm(id)
   sleep(1.0) # be nice to the OSM API server
   
-  url = "http://www.openstreetmap.org/api/0.6/node/#{id}?contact=harry_wood"
+  url = "https://www.openstreetmap.org/api/0.6/node/#{id}?contact=harry_wood"
   puts "Fetching #{url}"
   response = request(url)
-  if response.code == '410'
+  if response.status == 410
   	puts 'Node deleted. Finding location from history call instead'
   	return fetch_deleted_node_location_in_history(id)
-  elsif response.code != '200'  
-    fail "Error '#{response.body}' (#{response.code}) getting url: #{url}"
+  elsif response.status != 200
+    fail "Error '#{response.body}' (#{response.status}) getting url: #{url}"
   end
   node_body = response.body 
 
@@ -71,11 +76,11 @@ def fetch_from_osm(id)
 end
 
 def fetch_deleted_node_location_in_history(id)
-  url = "http://www.openstreetmap.org/api/0.6/node/#{id}/history?contact=harry_wood"
+  url = "https://www.openstreetmap.org/api/0.6/node/#{id}/history?contact=harry_wood"
   puts "Fetching #{url}"
   response = request(url)
-  if response.code != '200'  
-    fail "Error '#{response.body}' (#{response.code}) getting url: #{url}"
+  if response.status != 200
+    fail "Error '#{response.body}' (#{response.status}) getting url: #{url}"
   end
   node_history_body = response.body 
 

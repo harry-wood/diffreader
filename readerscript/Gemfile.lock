@@ -1,12 +1,14 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    httpclient (2.8.3)
     sqlite3 (1.3.13)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  httpclient
   sqlite3
 
 BUNDLED WITH
