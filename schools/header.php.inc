@@ -1,6 +1,8 @@
 <?php
 include('countdown.php.inc');
 
+//date_default_timezone_set("Europe/London");
+
 // Filter parameter
 $filter = (isset($_GET['filter']) ? $_GET['filter'] : "uk");
 

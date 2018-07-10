@@ -76,13 +76,12 @@ while ($data = $results->fetchArray()) {
    $lat          = $data[6];
    $lon          = $data[7];
 
-   $timestamp = preg_replace("/T/", " at ", $timestamp);
-   $timestamp = preg_replace("/Z/", "", $timestamp);
-
-   $timestamp = preg_replace("/Z/", "", $timestamp);
+   $datetime = DateTime::createFromFormat('Y-m-d\TH:i:s+', $timestamp, new DateTimeZone('UTC'));
+   $datetime->setTimezone(new DateTimeZone(date_default_timezone_get()));
+   $formatted_datetime = $datetime->format("Y/m/d H:i:s");
 
    print "<tr>";
-   print "<td>".$timestamp."</td>";
+   print "<td>".$formatted_datetime."</td>";
    print "<td>".$optype."</td>";
    print "<td><a href=\"http://www.openstreetmap.org/browse/$element_type/$osm_id\" title=\"browse the OpenStreetMap element\">$element_type:$osm_id</a></td>";
    print "<td>" . user_link($user) . "</td>";
