@@ -159,8 +159,8 @@ if ($edit_count==0) {
 $user_url = urlencode($user);
 $user_url = str_replace("+", "%20", $user_url);
 print "<ul>";
-print "<li><a href=\"http://www.openstreetmap.org/user/$user_url\" title=\"A place where they can describe themselves + normal edit tracking features\">OpenStreetMap user profile for '$user'</a></li>";
-print "<li><a href=\"http://hdyc.neis-one.org/?$user_url\" title=\"A place where they can describe themselves + normal edit tracking features\">neis-one.org \"How did you contribute\" for '$user'</a></li>";
+print "<li><a href=\"http://www.openstreetmap.org/user/$user_url\" title=\"A place where they can describe themselves + normal edit tracking features\">OpenStreetMap user profile for '" . htmlspecialchars($user) . "'</a></li>";
+print "<li><a href=\"http://hdyc.neis-one.org/?$user_url\" title=\"A place where they can describe themselves + normal edit tracking features\">neis-one.org \"How did you contribute\" for '" . htmlspecialchars($user) . "'</a></li>";
 print "</ul>";
 print "<br><br>";
 include('footer.php.inc');
