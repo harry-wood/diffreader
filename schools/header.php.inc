@@ -117,7 +117,7 @@ TABLE TH {
 
 
 <div id="toptext">
-  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/School.svg/240px-School.svg.png" title="School illustration. Vladsinger on wikimedia commons" id="logo">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/School.svg/250px-School.svg.png" title="School illustration. Vladsinger on wikimedia commons" id="logo">
   <h1>School edits 2016 <?php if ($filter!="none") { print '(' . $filter . ')'; } ?></h1>
   <p>
   Welcome to the OpenStreetMap School edits tracker. In the UK we're busy mapping schools for the <a href="http://wiki.openstreetmap.org/wiki/UK_Quarterly_Projects#Current_project_-_Schools">OpenStreetMap UK quarterly project</a>.
